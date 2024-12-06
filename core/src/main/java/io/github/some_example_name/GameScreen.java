@@ -24,10 +24,35 @@ public class GameScreen implements Screen {
         enemies = new ArrayList<>();
         font = new BitmapFont(); // Font default LibGDX
 
-        // Tambahkan musuh awal
-        enemies.add(new Enemy("hello", 800, 300, 100));
-        enemies.add(new Enemy("world", 900, 400, 120));
+        // Array berisi kalimat yang akan digunakan musuh
+        String[] sentences = {
+            "hello", "world", "libgdx", "java", "tower", "defense", "typing", "enemy"
+        };
+
+        // Tambahkan musuh dengan berbagai tipe
+        enemies.add(createEnemy(sentences, "fast"));
+        enemies.add(createEnemy(sentences, "normal"));
+        enemies.add(createEnemy(sentences, "normal"));
+        enemies.add(createEnemy(sentences, "fast"));
     }
+
+    // Metode untuk membuat musuh berdasarkan tipe
+    private Enemy createEnemy(String[] sentences, String type) {
+        String randomSentence = sentences[(int) (Math.random() * sentences.length)]; // Pilih kalimat acak
+        float x = 800 + (float) (Math.random() * 200); // Posisi X acak
+        float y = 100 + (float) (Math.random() * 300); // Posisi Y acak
+        float speed;
+
+        // Tetapkan kecepatan berdasarkan tipe musuh
+        if (type.equals("fast")) {
+            speed = 200; // Kecepatan tinggi
+        } else { // normal
+            speed = 100; // Kecepatan normal
+        }
+
+        return new Enemy(randomSentence, x, y, speed);
+    }
+
 
     @Override
     public void render(float delta) {
