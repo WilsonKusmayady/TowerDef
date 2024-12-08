@@ -13,6 +13,7 @@ import java.util.Iterator;
 public class GameScreen implements Screen {
     private SpriteBatch batch;
     private Player player;
+    private Weapon weapon;
     private ArrayList<Enemy> enemies;
     private BitmapFont font;
     private String typedText = ""; // Untuk menyimpan teks yang sedang diketik
@@ -21,6 +22,7 @@ public class GameScreen implements Screen {
     public void show() {
         batch = new SpriteBatch();
         player = new Player();
+        weapon = new Weapon();
         enemies = new ArrayList<>();
         font = new BitmapFont(); // Font default LibGDX
 
@@ -83,6 +85,7 @@ public class GameScreen implements Screen {
         // Render semua elemen
         batch.begin();
         player.render(batch); // Render player
+        weapon.render(batch);
 
         for (Enemy enemy : enemies) {
             enemy.render(batch); // Render musuh
@@ -129,6 +132,7 @@ public class GameScreen implements Screen {
     public void dispose() {
         batch.dispose();
         player.dispose();
+        weapon.dispose();
         font.dispose();
         for (Enemy enemy : enemies) {
             enemy.dispose();
