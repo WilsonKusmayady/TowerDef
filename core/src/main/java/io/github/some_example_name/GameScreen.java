@@ -72,6 +72,7 @@ public class GameScreen implements Screen {
 
             // Jika teks yang diketik cocok, musuh dihapus
             if (enemy.isDefeated(typedText)) {
+                weapon.rotateToEnemy(enemy.getX(), enemy.getY());
                 iterator.remove();
                 typedText = ""; // Reset teks
             }
