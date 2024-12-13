@@ -7,7 +7,7 @@ import io.github.some_example_name.TowerDefenseGame;
 /** Launches the desktop (LWJGL3) application. */
 public class Lwjgl3Launcher {
     public static void main(String[] args) {
-        if (StartupHelper.startNewJvmIfRequired()) return; // This handles macOS support and helps on Windows.
+        if (StartupHelper.startNewJvmIfRequired()) return;
         createApplication();
     }
 
@@ -17,7 +17,7 @@ public class Lwjgl3Launcher {
 
     private static Lwjgl3ApplicationConfiguration getDefaultConfiguration() {
         Lwjgl3ApplicationConfiguration configuration = new Lwjgl3ApplicationConfiguration();
-        configuration.setTitle("Tower Defense Game"); // Ganti nama proyek
+        configuration.setTitle("Protect The Sprite");
         configuration.useVsync(true);
         configuration.setForegroundFPS(60); // Set FPS ke 60
         configuration.setWindowedMode(1280, 720); // Resolusi layar

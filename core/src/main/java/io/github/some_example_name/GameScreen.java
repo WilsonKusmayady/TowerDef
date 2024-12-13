@@ -16,7 +16,11 @@ public class GameScreen implements Screen {
     private Weapon weapon;
     private ArrayList<Enemy> enemies;
     private BitmapFont font;
-    private String typedText = ""; // Untuk menyimpan teks yang sedang diketik
+    private String typedText = "";
+    // Untuk menyimpan teks yang sedang diketik
+
+    private int wave = 1;
+    private String[] sentences = { "hello", "world", "libgdx", "java", "tower", "defense", "typing", "enemy" }; // Kalimat untuk musuh
 
     @Override
     public void show() {
@@ -24,37 +28,37 @@ public class GameScreen implements Screen {
         player = new Player();
         weapon = new Weapon();
         enemies = new ArrayList<>();
-        font = new BitmapFont(); // Font default LibGDX
+        font = new BitmapFont();
 
-        // Array berisi kalimat yang akan digunakan musuh
-        String[] sentences = {
-            "hello", "world", "libgdx", "java", "tower", "defense", "typing", "enemy"
-        };
-
-        // Tambahkan musuh dengan berbagai tipe
-        enemies.add(createEnemy(sentences, "fast"));
-        enemies.add(createEnemy(sentences, "normal"));
-        enemies.add(createEnemy(sentences, "normal"));
-        enemies.add(createEnemy(sentences, "fast"));
+        generateWave(); // Memulai wave pertama
     }
 
-    // Metode untuk membuat musuh berdasarkan tipe
-    private Enemy createEnemy(String[] sentences, String type) {
-        String randomSentence = sentences[(int) (Math.random() * sentences.length)]; // Pilih kalimat acak
+    private Enemy createEnemy(String type) {
+        // Pilih kalimat acak
+        String randomSentence = sentences[(int) (Math.random() * sentences.length)];
         float x = 800 + (float) (Math.random() * 200); // Posisi X acak
         float y = 100 + (float) (Math.random() * 300); // Posisi Y acak
-        float speed;
+        float speed = 100; // Kecepatan dasar untuk normal enemy
 
-        // Tetapkan kecepatan berdasarkan tipe musuh
+        // Jika tipe adalah "fast", buat objek FastEnemy, jika tidak buat NormalEnemy
         if (type.equals("fast")) {
-            speed = 200; // Kecepatan tinggi
-        } else { // normal
-            speed = 100; // Kecepatan normal
+            return new FastEnemy(randomSentence, x, y, speed);
+        } else { // "normal"
+            return new NormalEnemy(randomSentence, x, y, speed);
         }
-
-        return new Enemy(randomSentence, x, y, speed);
     }
 
+
+    // Metode untuk menghasilkan musuh pada wave tertentu
+    private void generateWave() {
+        int enemyCount = wave == 1 ? 5 : (wave * 2 - 2); // Jumlah musuh berdasarkan wave
+        enemies.clear(); // Hapus semua musuh dari wave sebelumnya
+
+        for (int i = 0; i < enemyCount; i++) {
+            String type = i % 2 == 0 ? "fast" : "normal"; // Bergantian antara fast dan normal
+            enemies.add(createEnemy(type));
+        }
+    }
 
     @Override
     public void render(float delta) {
@@ -77,15 +81,22 @@ public class GameScreen implements Screen {
                 typedText = ""; // Reset teks
             }
 
-            // Jika musuh keluar layar, hapus
+            // Jika musuh keluar layar, kurangi nyawa pemain
             if (enemy.isOffScreen()) {
                 iterator.remove();
+                player.reduceHealth(10); // Kurangi nyawa pemain sebesar 10
             }
+        }
+
+        // Jika semua musuh habis, naikkan wave
+        if (enemies.isEmpty() && player.getHealth() > 0) { // Lanjut wave hanya jika pemain belum kalah
+            wave++;
+            generateWave();
         }
 
         // Render semua elemen
         batch.begin();
-        player.render(batch); // Render player
+        player.render(batch); // Render pemain
         weapon.render(batch);
 
         for (Enemy enemy : enemies) {
@@ -93,7 +104,16 @@ public class GameScreen implements Screen {
             font.draw(batch, enemy.getTextToType(), enemy.getX(), enemy.getY() + 50); // Tampilkan teks musuh
         }
 
-        font.draw(batch, "Typed: " + typedText, 50, 50); // Tampilkan teks yang diketik
+        // Tampilkan nyawa dan wave pemain
+        font.draw(batch, "Wave: " + wave, 10, Gdx.graphics.getHeight() - 10);
+        font.draw(batch, "Health: " + player.getHealth(), 10, Gdx.graphics.getHeight() - 30);
+        font.draw(batch, "Typed: " + typedText, 50, 50);
+
+        // Tampilkan Game Over jika nyawa habis
+        if (player.getHealth() <= 0) {
+            font.draw(batch, "Game Over", Gdx.graphics.getWidth() / 2 - 50, Gdx.graphics.getHeight() / 2);
+        }
+
         batch.end();
     }
 

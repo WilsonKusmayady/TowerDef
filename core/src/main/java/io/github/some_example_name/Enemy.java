@@ -3,11 +3,11 @@ package io.github.some_example_name;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-public class Enemy {
-    private String textToType;
-    private float x, y;
-    private float speed;
-    private Texture texture;
+public abstract class Enemy {
+    protected String textToType;
+    protected float x, y;
+    protected float speed;
+    protected Texture texture;
 
     public Enemy(String textToType, float x, float y, float speed) {
         this.textToType = textToType;
@@ -17,9 +17,8 @@ public class Enemy {
         this.texture = new Texture("enemy.png"); // Ganti dengan path gambar musuh Anda
     }
 
-    public void move(float deltaTime) {
-        x -= speed * deltaTime; // Gerak ke kiri
-    }
+    // Metode abstract yang akan diimplementasikan di subclass
+    public abstract void move(float deltaTime);
 
     public void render(SpriteBatch batch) {
         batch.draw(texture, x, y);
