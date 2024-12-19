@@ -7,13 +7,13 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class Player {
     private Texture texture;
     private float x, y;
-    private int health; // Tambahkan atribut untuk nyawa
+    private int health;
 
     public Player() {
         this.texture = new Texture("player.png");
         this.x = 50; // Letakkan di kiri layar
         this.y = (Gdx.graphics.getHeight() - texture.getHeight()) / 2;
-        this.health = 100; // Set nyawa awal
+        this.health = 100;
     }
 
     // Getter untuk nyawa
