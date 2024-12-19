@@ -8,8 +8,8 @@ public class Player {
     private Texture texture;
     private float x, y;
 
-    public Player() {
-        this.texture = new Texture("player.png");
+    public Player(String playerPath) {
+        this.texture = new Texture(playerPath);
         this.x = 50; // Letakkan di kiri layar
         this.y = (Gdx.graphics.getHeight() - texture.getHeight()) / 2;
     }

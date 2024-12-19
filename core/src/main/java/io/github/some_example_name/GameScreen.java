@@ -25,14 +25,22 @@ public class GameScreen implements Screen {
     private int wave = 1;
     private String[] sentences = { "hello", "world", "libgdx", "java", "tower", "defense", "typing", "enemy" };
 
+    private int playerType = 0; //Jika player type 1 terpilih archer atau 2 terpilih Cannon
+
     @Override
     public void show() {
         batch = new SpriteBatch();
         spire = new Spire();
-        player = new Player();
-        weapon = new Weapon();
         enemies = new ArrayList<>();
         font = new BitmapFont();
+
+        if (playerType == 1){ //Akan set texture jadi archer
+            weapon = new Weapon("bow.png");
+            player = new Player("player.png");
+        } else if (playerType == 2){ //Set texture Cannon
+            weapon = new Weapon("CannonBarrel.png");
+            player = new Player("cannon.png");
+        }
 
         // Load sprite sheet untuk musuh
         enemySpriteSheet = new Texture("alien.png"); // Pastikan path sesuai

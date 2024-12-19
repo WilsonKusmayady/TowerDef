@@ -10,8 +10,8 @@ public class Weapon {
     private Texture texture;
     private float x, y;
 
-    public Weapon(){
-        this.texture = new Texture("bow.png");
+    public Weapon(String weaponPath){
+        this.texture = new Texture(weaponPath);
         this.x = 60;
         this.y = (Gdx.graphics.getHeight() - texture.getHeight()) / 2;
         this.rotation = 0;

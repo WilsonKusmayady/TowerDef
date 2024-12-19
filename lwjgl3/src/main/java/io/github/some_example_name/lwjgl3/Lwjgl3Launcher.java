@@ -17,7 +17,7 @@ public class Lwjgl3Launcher {
 
     private static Lwjgl3ApplicationConfiguration getDefaultConfiguration() {
         Lwjgl3ApplicationConfiguration configuration = new Lwjgl3ApplicationConfiguration();
-        configuration.setTitle("Protect The Sprite");
+        configuration.setTitle("Protect The Spire");
         configuration.useVsync(true);
         configuration.setForegroundFPS(60); // Set FPS ke 60
         configuration.setWindowedMode(1280, 720); // Resolusi layar
