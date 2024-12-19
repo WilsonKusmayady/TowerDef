@@ -9,9 +9,9 @@ public class Background {
     private float x, y;
 
     public Background() {
-        this.texture = new Texture("background.png");
-        this.x = 0; // Letakkan di kiri layar
-        this.y = 0;
+        this.texture = new Texture("background1.png");
+        this.x = (Gdx.graphics.getWidth() - texture.getWidth()) / 2f; // Letakkan di kiri layar
+        this.y = (Gdx.graphics.getHeight() - texture.getHeight()) / 2;;
     }
 
     public void render(SpriteBatch batch) {

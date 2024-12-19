@@ -26,7 +26,7 @@ public class GameScreen implements Screen {
     private int wave = 1;
     private String[] sentences = { "hello", "world", "libgdx", "java", "tower", "defense", "typing", "enemy" };
 
-    private int playerType = 0; //Jika player type 1 terpilih archer atau 2 terpilih Cannon
+    private int playerType = 1; //Jika player type 1 terpilih archer atau 2 terpilih Cannon
 
     @Override
     public void show() {
@@ -119,6 +119,7 @@ public class GameScreen implements Screen {
             }
         }
 
+        //Display Wave, Spire HP, Typed
         font.draw(batch, "Wave: " + wave, 10, Gdx.graphics.getHeight() - 10);
         font.draw(batch, "Health: " + spire.getHealth(), 10, Gdx.graphics.getHeight() - 30);
         font.draw(batch, "Typed: " + typedText, 50, 50);
