@@ -18,9 +18,16 @@ public class Weapon {
     }
 
     public void rotateToEnemy(float enemyX, float enemyY){ //function untuk rotate kepada enemy
-        float deltaX = enemyX - x;
-        float deltaY = enemyY - y;
-        rotation = MathUtils.radiansToDegrees * MathUtils.atan2(deltaY, deltaX); //Menghitung rotasi kepada target
+        // Calculate the center of the weapon
+        float weaponCenterX = x + texture.getWidth() / 2f;
+        float weaponCenterY = y + texture.getHeight() / 2f;
+
+        // Calculate the difference between the weapon's center and the enemy's position
+        float deltaX = enemyX - weaponCenterX;
+        float deltaY = enemyY - weaponCenterY;
+
+        // Calculate the rotation angle in degrees
+        rotation = MathUtils.radiansToDegrees * MathUtils.atan2(deltaY, deltaX);
     }
 
     public void render(SpriteBatch batch) {
