@@ -15,6 +15,7 @@ public class GameScreen implements Screen {
     private SpriteBatch batch;
     private Player player;
     private Weapon weapon;
+    private Spire spire;
     private ArrayList<Enemy> enemies;
     private BitmapFont font;
     private String typedText = "";
@@ -27,6 +28,7 @@ public class GameScreen implements Screen {
     @Override
     public void show() {
         batch = new SpriteBatch();
+        spire = new Spire();
         player = new Player();
         weapon = new Weapon();
         enemies = new ArrayList<>();
@@ -80,7 +82,7 @@ public class GameScreen implements Screen {
 
             if (enemy.isOffScreen()) {
                 iterator.remove();
-                player.reduceHealth(10);
+                spire.reduceHealth(10);
             }
 
             // Hapus musuh setelah animasi mati selesai
@@ -89,7 +91,7 @@ public class GameScreen implements Screen {
             }
         }
 
-        if (enemies.isEmpty() && player.getHealth() > 0) {
+        if (enemies.isEmpty() && spire.getHealth() > 0) {
             wave++;
             generateWave();
         }
@@ -97,6 +99,7 @@ public class GameScreen implements Screen {
         batch.begin();
         player.render(batch);
         weapon.render(batch);
+        spire.render(batch);
 
         for (Enemy enemy : enemies) {
             enemy.render(batch);
@@ -106,10 +109,10 @@ public class GameScreen implements Screen {
         }
 
         font.draw(batch, "Wave: " + wave, 10, Gdx.graphics.getHeight() - 10);
-        font.draw(batch, "Health: " + player.getHealth(), 10, Gdx.graphics.getHeight() - 30);
+        font.draw(batch, "Health: " + spire.getHealth(), 10, Gdx.graphics.getHeight() - 30);
         font.draw(batch, "Typed: " + typedText, 50, 50);
 
-        if (player.getHealth() <= 0) {
+        if (spire.getHealth() <= 0) {
             font.draw(batch, "Game Over", Gdx.graphics.getWidth() / 2 - 50, Gdx.graphics.getHeight() / 2);
         }
 
@@ -157,6 +160,7 @@ public class GameScreen implements Screen {
         player.dispose();
         weapon.dispose();
         font.dispose();
+        spire.dispose();
         enemySpriteSheet.dispose(); // Dispose sprite sheet
 
         for (Enemy enemy : enemies) {
