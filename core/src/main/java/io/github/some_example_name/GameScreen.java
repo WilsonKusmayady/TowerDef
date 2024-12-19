@@ -13,6 +13,7 @@ import java.util.Iterator;
 
 public class GameScreen implements Screen {
     private SpriteBatch batch;
+    private Background background;
     private Player player;
     private Weapon weapon;
     private Spire spire;
@@ -30,6 +31,7 @@ public class GameScreen implements Screen {
     @Override
     public void show() {
         batch = new SpriteBatch();
+        background = new Background();
         spire = new Spire();
         enemies = new ArrayList<>();
         font = new BitmapFont();
@@ -105,6 +107,7 @@ public class GameScreen implements Screen {
         }
 
         batch.begin();
+        background.render(batch);
         player.render(batch);
         weapon.render(batch);
         spire.render(batch);
@@ -169,6 +172,7 @@ public class GameScreen implements Screen {
         weapon.dispose();
         font.dispose();
         spire.dispose();
+        background.dispose();
         enemySpriteSheet.dispose(); // Dispose sprite sheet
 
         for (Enemy enemy : enemies) {
