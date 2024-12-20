@@ -21,8 +21,6 @@ public class MainMenuScreen implements Screen {
         this.game = game;
         batch = new SpriteBatch();
         font = new BitmapFont();
-        archerTexture = new Texture("bow.png");
-        cannonTexture = new Texture("CannonBarrel.png");
         playerType = 1; // Default player type
     }
 
