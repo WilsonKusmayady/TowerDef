@@ -28,6 +28,10 @@ public class GameScreen implements Screen {
 
     private int playerType = 1; //Jika player type 1 terpilih archer atau 2 terpilih Cannon
 
+    public GameScreen(int playerType){
+        this.playerType = playerType;
+    }
+
     @Override
     public void show() {
         batch = new SpriteBatch();
@@ -174,6 +178,7 @@ public class GameScreen implements Screen {
         font.dispose();
         spire.dispose();
         background.dispose();
+        weapon.dispose();
         enemySpriteSheet.dispose(); // Dispose sprite sheet
 
         for (Enemy enemy : enemies) {
