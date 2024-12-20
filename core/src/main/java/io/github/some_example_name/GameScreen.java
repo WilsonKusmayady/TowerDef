@@ -164,7 +164,7 @@ public class GameScreen implements Screen {
                 if (i == Input.Keys.BACKSPACE && typedText.length() > 0) {
                     typedText = typedText.substring(0, typedText.length() - 1);
                 } else if (i == Input.Keys.ENTER) {
-
+                    typedText = "";
                 }   else if (i == Input.Keys.SPACE) {
                     typedText += " ";
                 }
