@@ -24,7 +24,28 @@ public class GameScreen implements Screen {
     private Texture enemySpriteSheet;
 
     private int wave = 1;
-    private String[] sentences = { "hello", "world", "libgdx", "java", "tower", "defense", "typing", "enemy" };
+    String[] sentences = {
+        // 2-5 karakter
+        "hi", "go", "yes", "no", "cat", "dog", "run", "code", "java", "life", "fast",
+        "slow", "game", "play", "hero", "bird", "jump", "type", "text", "dark",
+
+        // 6-10 karakter
+        "example", "libgdx", "monster", "tower", "cannon", "defend", "attack", "player",
+        "victory", "knight", "shield", "battle", "castle", "dragon", "forest", "health",
+        "weapon", "energy", "castle", "faster",
+
+        // 11-15 karakter
+        "tower defense", "java coding", "monster wave", "archer attack", "heroic deeds",
+        "typing skill", "defender game", "fast and fun", "protect spire", "player choice",
+        "victory road", "dragon slayer", "shield maiden", "knight armor", "defense force",
+
+        // 16-20 karakter
+        "typing tower defense", "hero saves the day", "monster invasion plan",
+        "defense against evil", "victory against all", "player defeats enemy",
+        "archer with bow and arrow", "cannon to destroy foes", "spire under attack",
+        "dragon burns the land"
+    };
+
 
     private int playerType = 1; //Jika player type 1 terpilih archer atau 2 terpilih Cannon
 
@@ -60,9 +81,11 @@ public class GameScreen implements Screen {
         float speed = 100;
 
         if (type.equals("fast")) {
-            return new FastEnemy(randomSentence, x, y, speed, enemySpriteSheet);
+            String shortText = FastEnemy.generateShortText(sentences);
+            return new FastEnemy(shortText, x, y, speed, enemySpriteSheet);
         } else { // "normal"
-            return new NormalEnemy(randomSentence, x, y, speed, enemySpriteSheet);
+            String longText = NormalEnemy.generateLongText(sentences);
+            return new NormalEnemy(longText, x, y, speed, enemySpriteSheet);
         }
     }
 
@@ -141,8 +164,11 @@ public class GameScreen implements Screen {
                 if (i == Input.Keys.BACKSPACE && typedText.length() > 0) {
                     typedText = typedText.substring(0, typedText.length() - 1);
                 } else if (i == Input.Keys.ENTER) {
-                    // Enter tidak digunakan di sini
-                } else {
+
+                }   else if (i == Input.Keys.SPACE) {
+                    typedText += " ";
+                }
+                else {
                     try {
                         char c = Input.Keys.toString(i).toLowerCase().charAt(0);
                         typedText += c;

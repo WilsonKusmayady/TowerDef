@@ -85,8 +85,8 @@ public abstract class Enemy {
         return x + 64 < 0;
     }
 
-    public boolean isDefeated(String input) {
-        return textToType.equalsIgnoreCase(input);
+    public boolean isDefeated(String sentence) {
+        return textToType.equalsIgnoreCase(sentence);
     }
 
     public String getTextToType() {
